@@ -4,11 +4,18 @@ import style from './MyPosts.module.css'
 
 const MyPosts: React.FC = () => {
     return (
-        <div className={style.my_posts}>
-            <Post post={"My post number 1"} likes={12}/>
-            <Post post={"My post number 2"} likes={23}/>
-            <Post post={"My post number 3"} likes={44}/>
+        <div>
+            <textarea placeholder={'Enter your text'}></textarea>
+            <div>
+                <button>Add post</button>
+            </div>
+            <div className={style.my_posts}>
+                <Post post={"My post number 1"} likes={12}/>
+                <Post post={"My post number 2"} likes={23}/>
+                <Post post={"My post number 3"} likes={44}/>
+            </div>
         </div>
+
     );
 };
 

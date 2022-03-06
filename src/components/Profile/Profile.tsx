@@ -1,13 +1,11 @@
 import React from 'react';
 import MyPosts from "./MyPosts/MyPosts";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
 
 const Profile: React.FC = () => {
     return (
-        <div className={'profile'}>
-            <textarea placeholder={'Enter your text'}></textarea>
-            <div>
-                <button>Add post</button>
-            </div>
+        <div>
+            <ProfileInfo/>
             <MyPosts/>
         </div>
     );

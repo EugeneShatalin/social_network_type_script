@@ -1,0 +1,15 @@
+.link {
+    text-decoration: none;
+    color: #FFF;
+    padding: 5px;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+.active {
+    color: gold;
+    text-decoration: none;
+    padding: 5px;
+    display: inline-block;
+    box-sizing: border-box;
+}
