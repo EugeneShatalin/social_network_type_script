@@ -1,11 +1,15 @@
 import React from 'react';
 import Post from "./Post/Post";
 import style from './MyPosts.module.css'
-import {ProfilePropsType} from "../Profile";
+import {PostType} from "../../../index";
 
-const MyPosts = (props: ProfilePropsType) => {
+type MyPostsType = {
+    posts: Array<PostType>
+}
 
-    let postsElements = props.posts.map(p => <Post key={p.id} post={p.post} likesCount={p.likesCount}/>);
+const MyPosts = (props: MyPostsType) => {
+
+   let postsElements = props.posts.map(p => <Post key={p.id} post={p.post} likesCount={p.likesCount}/>);
 
     return (
         <div>
