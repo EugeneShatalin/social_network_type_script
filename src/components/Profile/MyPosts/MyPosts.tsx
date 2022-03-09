@@ -11,11 +11,19 @@ const MyPosts = (props: MyPostsType) => {
 
    let postsElements = props.posts.map(p => <Post key={p.id} post={p.post} likesCount={p.likesCount}/>);
 
+   let newPostElement:  React.RefObject<HTMLTextAreaElement> = React.createRef();
+
+   const addPost = () => {
+       if(newPostElement.current) {
+           alert(newPostElement.current.value)
+       }
+   }
+
     return (
         <div>
-            <textarea placeholder={'Enter your text'}></textarea>
+            <textarea ref={newPostElement} placeholder={'Enter your text'}></textarea>
             <div>
-                <button>Add post</button>
+                <button onClick={addPost}>Add post</button>
             </div>
             <div className={style.my_posts}>
                 {postsElements}
