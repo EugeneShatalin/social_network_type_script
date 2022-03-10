@@ -1,4 +1,20 @@
-import {DialogItemPropsType, MessagePropsType, PostType} from "../index";
+import {rerenderEntireTree} from "../render";
+
+export type DialogItemPropsType = {
+    name: string
+    id: number
+}
+
+export type MessagePropsType = {
+    message: string
+    id?: number
+}
+
+export type PostType = {
+    post: string,
+    likesCount: number,
+    id?: number
+}
 
 export type dialogsPageType = {
     dialogs: Array<DialogItemPropsType>
@@ -35,4 +51,14 @@ export let state: stateType = {
             {post: 'My post number 3', likesCount: 44, id: 3},
         ],
     }
+}
+
+export let addPost = (postMessage: string) => {
+    let newPost: PostType = {
+        id: 5,
+        post: postMessage,
+        likesCount: 0
+    };
+    state.profilePage.posts.push(newPost);
+    rerenderEntireTree(state);
 }

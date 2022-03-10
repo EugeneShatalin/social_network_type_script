@@ -4,6 +4,8 @@ import DialogItem from "./DialogItem/DialogItem";
 import Message from './Message/Message';
 import {dialogsPageType} from "../../redux/state";
 
+
+
 export type DialogsPropsType = {
     state:  dialogsPageType
 }

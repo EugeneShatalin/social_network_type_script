@@ -1,10 +1,11 @@
 import React from 'react';
 import Post from "./Post/Post";
 import style from './MyPosts.module.css'
-import {PostType} from "../../../index";
+import {PostType} from "../../../redux/state";
 
 type MyPostsType = {
     posts: Array<PostType>
+    addPost: (postMessage: string) => void
 }
 
 const MyPosts = (props: MyPostsType) => {
@@ -15,7 +16,7 @@ const MyPosts = (props: MyPostsType) => {
 
    const addPost = () => {
        if(newPostElement.current) {
-           alert(newPostElement.current.value)
+           props.addPost(newPostElement.current.value);
        }
    }
 
