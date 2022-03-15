@@ -23,6 +23,7 @@ export type dialogsPageType = {
 
 export type profilePageType = {
     posts: Array<PostType>
+    newPostText: string
 }
 
 export type stateType = {
@@ -50,15 +51,22 @@ export let state: stateType = {
             {post: 'My post number 2', likesCount: 23, id: 2},
             {post: 'My post number 3', likesCount: 44, id: 3},
         ],
+        newPostText: "IT-KAMASUTRA",
     }
 }
 
-export let addPost = (postMessage: string) => {
+export let addPost = () => {
     let newPost: PostType = {
         id: 5,
-        post: postMessage,
+        post: state.profilePage.newPostText,
         likesCount: 0
     };
     state.profilePage.posts.push(newPost);
+    state.profilePage.newPostText = '';
+    rerenderEntireTree(state);
+}
+
+export let updateNewPostText = (newText: string) => {
+    state.profilePage.newPostText = newText;
     rerenderEntireTree(state);
 }
