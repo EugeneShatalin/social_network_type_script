@@ -1,4 +1,5 @@
-import {rerenderEntireTree} from "../render";
+let rerenderEntireTree = () => {
+}
 
 export type DialogItemPropsType = {
     name: string
@@ -55,7 +56,7 @@ export let state: stateType = {
     }
 }
 
-export let addPost = () => {
+export const addPost = () => {
     let newPost: PostType = {
         id: 5,
         post: state.profilePage.newPostText,
@@ -63,10 +64,14 @@ export let addPost = () => {
     };
     state.profilePage.posts.push(newPost);
     state.profilePage.newPostText = '';
-    rerenderEntireTree(state);
+    rerenderEntireTree();
 }
 
-export let updateNewPostText = (newText: string) => {
+export const updateNewPostText = (newText: string) => {
     state.profilePage.newPostText = newText;
-    rerenderEntireTree(state);
+    rerenderEntireTree();
+}
+
+export const subscribe = (observer: any) => {
+    rerenderEntireTree = observer;
 }
