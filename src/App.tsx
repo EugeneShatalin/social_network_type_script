@@ -4,16 +4,15 @@ import Header from './components/Header/Header'
 import Navbar from './components/Navbar/Navbar'
 import Profile from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
-import {Route, Routes } from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
-import {stateType} from "./redux/state";
+import {ActionsTypes, StateType} from "./redux/state";
 
 export type AppPropsType = {
-    state: stateType
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
+    state: StateType
+    dispatch: (action: ActionsTypes) => void
 }
 
 const App = (props: AppPropsType) => {
@@ -23,15 +22,14 @@ const App = (props: AppPropsType) => {
             <Navbar/>
             <div className={'app-wrapper-content'}>
                 <Routes>
-                    <Route path="/dialogs" element={<Dialogs state={props.state.dialogsPage}/>} />
+                    <Route path="/dialogs" element={<Dialogs state={props.state.dialogsPage}/>}/>
                     <Route path="/profile" element={<Profile
                         profilePage={props.state.profilePage}
-                        addPost={props.addPost}
-                        updateNewPostText={props.updateNewPostText}
-                    />} />
-                    <Route path="/news" element={<News />} />
-                    <Route path="/music" element={<Music />} />
-                    <Route path="/settings" element={<Settings />} />
+                        dispatch={props.dispatch}
+                    />}/>
+                    <Route path="/news" element={<News/>}/>
+                    <Route path="/music" element={<Music/>}/>
+                    <Route path="/settings" element={<Settings/>}/>
                 </Routes>
             </div>
         </div>

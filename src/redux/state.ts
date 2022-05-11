@@ -9,36 +9,46 @@ export type MessagePropsType = {
 }
 
 export type PostType = {
-    post: string,
-    likesCount: number,
+    post: string
+    likesCount: number
     id?: number
 }
 
-export type dialogsPageType = {
+export type DialogsPageType = {
     dialogs: Array<DialogItemPropsType>
     messages: Array<MessagePropsType>
 }
 
-export type profilePageType = {
+export type ProfilePageType = {
     posts: Array<PostType>
     newPostText: string
 }
 
-export type stateType = {
-    dialogsPage: dialogsPageType
-    profilePage: profilePageType
+export type StateType = {
+    dialogsPage: DialogsPageType
+    profilePage: ProfilePageType
 }
 
-export type storeType = {
-    _state: stateType
-    getState: () => stateType
+type ActionTypeAddPost = {
+    type: 'ADD-POST'
+}
+
+type ActionTypeUpdateNewPostText = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newText: string
+}
+
+export type ActionsTypes = ActionTypeAddPost | ActionTypeUpdateNewPostText
+
+export type StoreType = {
+    _state: StateType
+    getState: () => StateType
     _callSubscriber: () => void
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
+    dispatch: (action: ActionsTypes) => void
     subscribe: (callback: () => void) => void
 }
 
-let store: storeType = {
+let store: StoreType = {
     _state: {
         dialogsPage: {
             dialogs: [
@@ -62,28 +72,31 @@ let store: storeType = {
             newPostText: "IT-KAMASUTRA",
         }
     },
+    _callSubscriber() {
+    },
+
     getState() {
         return this._state
     },
-    _callSubscriber() {
-    },
-    addPost() {
-        let newPost: PostType = {
-            id: 5,
-            post: this._state.profilePage.newPostText,
-            likesCount: 0
-        };
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = '';
-        this._callSubscriber();
-    },
-    updateNewPostText(newText) {
-        this._state.profilePage.newPostText = newText;
-        this._callSubscriber();
-    },
     subscribe(callback) {
         this._callSubscriber = callback;
-    }
+    },
+
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            let newPost: PostType = {
+                id: 5,
+                post: this._state.profilePage.newPostText,
+                likesCount: 0
+            };
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newPostText = '';
+            this._callSubscriber();
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber();
+        }
+            }
 }
 
 export default store
