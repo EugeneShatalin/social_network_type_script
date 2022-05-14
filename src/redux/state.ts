@@ -17,6 +17,7 @@ export type PostType = {
 export type DialogsPageType = {
     dialogs: Array<DialogItemPropsType>
     messages: Array<MessagePropsType>
+    newMessageBody: string
 }
 
 export type ProfilePageType = {
@@ -29,16 +30,22 @@ export type StateType = {
     profilePage: ProfilePageType
 }
 
-type ActionTypeAddPost = {
-    type: 'ADD-POST'
+type AddPostActionType = ReturnType<typeof addPostActionCreator>
+
+type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextActionCreator>
+
+type UpdateNewMessageBodyActionType = ReturnType<typeof updateNewMessageBodyCreator>
+
+type SendMessageActionType = {
+    type: 'SEND-MESSAGE'
 }
 
-type ActionTypeUpdateNewPostText = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newText: string
-}
+export type ActionsTypes =
 
-export type ActionsTypes = ActionTypeAddPost | ActionTypeUpdateNewPostText
+    AddPostActionType
+    | UpdateNewPostTextActionType
+    | UpdateNewMessageBodyActionType
+    | SendMessageActionType
 
 export type StoreType = {
     _state: StateType
@@ -46,6 +53,30 @@ export type StoreType = {
     _callSubscriber: () => void
     dispatch: (action: ActionsTypes) => void
     subscribe: (callback: () => void) => void
+}
+
+export const addPostActionCreator = () => {
+    return {
+        type:'ADD-POST'
+    } as const
+}
+export const updateNewPostTextActionCreator = (text: string) => {
+    return {
+        type: 'UPDATE-NEW-POST-TEXT',
+        newText: text
+    } as const
+}
+
+export const updateNewMessageBodyCreator = (body: string) => {
+    return {
+        type: 'UPDATE-NEW-MESSAGE-BODY',
+        body: body
+    } as const
+}
+export const sendMessageCreator = () => {
+    return {
+        type: 'SEND-MESSAGE',
+    } as const
 }
 
 let store: StoreType = {
@@ -61,7 +92,8 @@ let store: StoreType = {
                 {message: 'Hi!', id: 1},
                 {message: 'How are you?', id: 1},
                 {message: 'I\'m fine, thanks!', id: 1},
-            ]
+            ],
+            newMessageBody: '',
         },
         profilePage: {
             posts: [
@@ -95,8 +127,16 @@ let store: StoreType = {
         } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
             this._state.profilePage.newPostText = action.newText;
             this._callSubscriber();
+        } else if (action.type === 'UPDATE-NEW-MESSAGE-BODY') {
+            this._state.dialogsPage.newMessageBody = action.body;
+            this._callSubscriber();
+        } else if (action.type === 'SEND-MESSAGE') {
+            let body = this._state.dialogsPage.newMessageBody;
+            this._state.dialogsPage.newMessageBody = '';
+            this._state.dialogsPage.messages.push({message: body, id: 6})
+            this._callSubscriber();
         }
-            }
+    }
 }
 
 export default store
