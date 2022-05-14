@@ -1,10 +1,19 @@
-import {ActionsTypes, PostType, ProfilePageType} from "./state";
+import {ActionsTypes, PostType, ProfilePageType} from "./store";
 
 export type AddPostActionType = ReturnType<typeof addPostActionCreator>
 
 export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextActionCreator>
 
-const profileReducer = (state: ProfilePageType, action: ActionsTypes) => {
+let initialState = {
+    posts: [
+        {post: 'My post number 1', likesCount: 12, id: 1},
+        {post: 'My post number 2', likesCount: 23, id: 2},
+        {post: 'My post number 3', likesCount: 44, id: 3},
+    ],
+    newPostText: "IT-KAMASUTRA",
+}
+
+const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case "ADD-POST":
             let newPost: PostType = {
