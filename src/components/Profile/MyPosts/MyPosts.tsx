@@ -1,7 +1,8 @@
 import React from 'react';
 import Post from "./Post/Post";
 import style from './MyPosts.module.css'
-import {PostType} from "../../../redux/store";
+import {PostType} from "./MyPostsContainer";
+
 
 
 type MyPostsType = {

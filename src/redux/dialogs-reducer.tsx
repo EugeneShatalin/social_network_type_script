@@ -1,33 +1,49 @@
-import {ActionsTypes, DialogsPageType} from "./store";
+import {ActionsTypes} from "./redux-store";
 
 export type UpdateNewMessageBodyActionType = ReturnType<typeof updateNewMessageBodyCreator>
 
 export type SendMessageActionType = ReturnType<typeof sendMessageCreator>
 
-let initialState = {
+export type DialogItemPropsType = {
+    id: number
+    name: string
+}
+
+export type MessagePropsType = {
+    id?: number
+    message: string
+}
+
+export type InitialStateDialogsReducerType = {
+    dialogs: Array<DialogItemPropsType>
+    messages: Array<MessagePropsType>
+    newMessageBody: string
+}
+
+let initialState: InitialStateDialogsReducerType = {
     dialogs: [
-        {name: 'Dimych', id: 1},
-        {name: 'Anna', id: 1},
-        {name: 'Victor', id: 1},
-        {name: 'Sasha', id: 1},
+        {id: 1, name: 'Dimych'},
+        {id: 2, name: 'Anna'},
+        {id: 3, name: 'Victor'},
+        {id: 4, name: 'Sasha'},
     ],
     messages: [
-        {message: 'Hi!', id: 1},
-        {message: 'How are you?', id: 1},
-        {message: 'I\'m fine, thanks!', id: 1},
+        {id: 1, message: 'Hi!'},
+        {id: 2, message: 'How are you?'},
+        {id: 3, message: 'I\'m fine, thanks!'},
     ],
     newMessageBody: '',
 }
 
-const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsTypes) => {
+const dialogsReducer = (state: InitialStateDialogsReducerType = initialState, action: ActionsTypes): InitialStateDialogsReducerType => {
     switch (action.type) {
-        case "UPDATE-NEW-MESSAGE-BODY":
-            state.newMessageBody = action.body;
-            return state;
         case "SEND-MESSAGE":
             let body = state.newMessageBody;
             state.newMessageBody = '';
             state.messages.push({message: body, id: 6})
+            return state;
+        case "UPDATE-NEW-MESSAGE-BODY":
+            state.newMessageBody = action.body;
             return state;
         default:
             return state;
@@ -41,6 +57,7 @@ export const updateNewMessageBodyCreator = (body: string) => {
     } as const
 }
 export const sendMessageCreator = () => {
+    debugger
     return {
         type: 'SEND-MESSAGE',
     } as const

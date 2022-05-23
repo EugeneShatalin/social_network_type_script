@@ -1,14 +1,11 @@
 import React from 'react';
-import {ActionsTypes, DialogsPageType, PostType, ProfilePageType} from "../../../redux/store";
 import {addPostActionCreator, updateNewPostTextActionCreator} from '../../../redux/profile-reducer';
 import MyPosts from "./MyPosts";
-import {EmptyObject, Store} from "redux";
+import {AppStateType} from "../../../redux/redux-store";
+import {Dispatch} from "redux";
+import {connect} from "react-redux";
 
-type MyPostsType = {
-    store:  Store<EmptyObject & {profilePage: ProfilePageType, dialogsPage: DialogsPageType}, ActionsTypes>
-}
-
-const MyPostsContainer = (props: MyPostsType) => {
+/*const MyPostsContainer = () => {
 
     const addPost = () => {
         let action: ActionsTypes = addPostActionCreator();
@@ -22,13 +19,47 @@ const MyPostsContainer = (props: MyPostsType) => {
 
     return (
         <MyPosts
-            posts={props.store.getState().profilePage.posts}
-            newPostText={props.store.getState().profilePage.newPostText}
             updateNewPostText={onPostChange}
             addPost={addPost}
         />
 
     );
-};
+};*/
+
+export type PostType = {
+    post: string
+    likesCount: number
+    id?: number
+}
+
+export type MyPostConMapStateToPropsType = {
+    posts: Array<PostType>
+    newPostText: string
+}
+
+export type MyPostConMapDispatchToPropsType = {
+    updateNewPostText: (text: string) => void
+    addPost: () => void
+}
+
+let mapStateToProps = (state: AppStateType): MyPostConMapStateToPropsType => {
+    return {
+        posts: state.profilePage.posts,
+        newPostText: state.profilePage.newPostText
+    }
+}
+
+let mapDispatchToProps = (dispatch: Dispatch): MyPostConMapDispatchToPropsType => {
+    return {
+        updateNewPostText: (text: string) => {
+            dispatch(updateNewPostTextActionCreator(text))
+        },
+        addPost: () => {
+            dispatch(addPostActionCreator())
+        }
+    }
+}
+
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
 
 export default MyPostsContainer;

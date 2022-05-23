@@ -1,29 +1,29 @@
 import profileReducer, { AddPostActionType, UpdateNewPostTextActionType } from "./profile-reducer";
 import dialogsReducer, {SendMessageActionType, UpdateNewMessageBodyActionType} from "./dialogs-reducer";
 
-export type DialogItemPropsType = {
+type DialogItemPropsType = {
     name: string
     id: number
 }
 
-export type MessagePropsType = {
+type MessagePropsType = {
     message: string
     id?: number
 }
 
-export type PostType = {
+type PostType = {
     post: string
     likesCount: number
     id?: number
 }
 
-export type DialogsPageType = {
+type DialogsPageType = {
     dialogs: Array<DialogItemPropsType>
     messages: Array<MessagePropsType>
     newMessageBody: string
 }
 
-export type ProfilePageType = {
+type ProfilePageType = {
     posts: Array<PostType>
     newPostText: string
 }
@@ -33,7 +33,7 @@ export type StateType = {
     profilePage: ProfilePageType
 }
 
-export type ActionsTypes =
+type ActionsTypes =
 
     AddPostActionType
     | UpdateNewPostTextActionType
