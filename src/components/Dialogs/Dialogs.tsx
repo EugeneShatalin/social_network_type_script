@@ -9,7 +9,6 @@ import {DialogsConMapDispatchToPropsType, DialogsConMapStateToPropsType} from ".
 export type DialogsPropsType = DialogsConMapStateToPropsType & DialogsConMapDispatchToPropsType
 
 const Dialogs = (props: DialogsPropsType) => {
-    debugger
     let dialogsElements = props.dialogsPage.dialogs.map(d => (<DialogItem key={d.id} name={d.name} id={d.id}/>));
 
     let messagesElements = props.dialogsPage.messages.map(m => (<Message key={m.id} message={m.message}/>));
