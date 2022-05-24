@@ -12,6 +12,9 @@ const Navbar: React.FC = () => {
                 <NavLink  to="/dialogs" className={({ isActive }) => isActive ? `${s.active}` : `${s.link}`}>Dialogs</NavLink>
             </div>
             <div>
+                <NavLink  to="/users" className={({ isActive }) => isActive ? `${s.active}` : `${s.link}`}>Users</NavLink>
+            </div>
+            <div>
                 <NavLink  to="/news" className={({ isActive }) => isActive ? `${s.active}` : `${s.link}`}>News</NavLink>
             </div>
             <div>
