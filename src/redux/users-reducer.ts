@@ -6,18 +6,18 @@ export type UnfollowActionType = ReturnType<typeof unfollowAC>
 
 export type SetUsersActionType = ReturnType<typeof setUsersAC>
 
-type LocationType = {
-    city: string
-    country: string
+type PhotosType = {
+    small: string | null
+    large: string | null
 }
 
 export type UserType = {
+    name: string
     id: number
-    photo: string
+    uniqueUrlName: string | null
+    photos: PhotosType
     followed: boolean
-    fullName: string
-    status: string
-    location: LocationType
+    status: string | null
 }
 
 export type InitialStateUsersReducerType = {

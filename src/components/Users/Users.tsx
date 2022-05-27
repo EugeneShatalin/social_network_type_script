@@ -1,45 +1,17 @@
 import React from 'react';
 import {UsersConMapDispatchToPropsType, UsersConMapStateToPropsType} from "./UsersContainer";
+import axios from "axios";
+import userPhoto from "../../assets/images/user.png"
 
 type UsersPropsType = UsersConMapStateToPropsType & UsersConMapDispatchToPropsType
 
 const Users = (props: UsersPropsType) => {
     if(props.users.length === 0) {
-        props.setUsers([
-            {
-                id: 1,
-                photo: 'https://тайна-вашего-имени.рф/img/imena/dmitriy.jpg',
-                followed: false,
-                fullName: 'Jonik',
-                status: 'I understand REACT.js',
-                location: {
-                    city: 'Ereymentau',
-                    country: 'Kazachstan'
-                }
-            },
-            {
-                id: 2,
-                photo: 'https://тайна-вашего-имени.рф/img/imena/dmitriy.jpg',
-                followed: true,
-                fullName: 'Victor',
-                status: 'I understand REACT.js',
-                location: {
-                    city: 'Ereymentau',
-                    country: 'Kazachstan'
-                }
-            },
-            {
-                id: 2,
-                photo: 'https://тайна-вашего-имени.рф/img/imena/dmitriy.jpg',
-                followed: false,
-                fullName: 'Miha',
-                status: 'I understand REACT.js',
-                location: {
-                    city: 'Ereymentau',
-                    country: 'Kazachstan'
-                }
-            },
-        ])
+       axios.get("https://social-network.samuraijs.com/api/1.0/users")
+           .then(response => {
+              props.setUsers(response.data.items)
+               console.log(response)
+           })
     }
     return (
         <div>
@@ -47,7 +19,7 @@ const Users = (props: UsersPropsType) => {
                 props.users.map(u => <div key={u.id}>
                     <span>
                 <div>
-                    <img src={u.photo} alt=""/>
+                    <img src={u.photos.small != null ? u.photos.small : userPhoto} alt=""/>
                 </div>
                 <div>
                     {
@@ -59,12 +31,8 @@ const Users = (props: UsersPropsType) => {
             </span>
                     <span>
                 <span>
-                    <div>{u.fullName}</div>
+                    <div>{u.name}</div>
                     <div>{u.status}</div>
-                </span>
-                <span>
-                    <div>{u.location.country}</div>
-                    <div>{u.location.city}</div>
                 </span>
             </span>
                 </div>)
