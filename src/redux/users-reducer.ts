@@ -10,6 +10,8 @@ export type SetCurrentPageActionType = ReturnType<typeof setCurrentPageAC>
 
 export type SetUsersCountACActionType = ReturnType<typeof setUsersTotalCountAC>
 
+export type SetIsFetchingACActionType = ReturnType<typeof toggleIsFetchingAC>
+
 type PhotosType = {
     small: string | null
     large: string | null
@@ -29,6 +31,7 @@ export type InitialStateUsersReducerType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    isFetching: boolean
 }
 
 
@@ -36,7 +39,8 @@ let initialState: InitialStateUsersReducerType = {
     users: [],
     pageSize: 5,
     totalUsersCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: true
 }
 
 const usersReducer = (state: InitialStateUsersReducerType = initialState, action: ActionsTypes): InitialStateUsersReducerType => {
@@ -76,6 +80,11 @@ const usersReducer = (state: InitialStateUsersReducerType = initialState, action
                 ...state,
                 totalUsersCount: action.totalUsersCount
             };
+        case 'TOGGLE_IS_FETCHING':
+            return {
+                ...state,
+                isFetching: action.isFetching
+            };
         default:
             return state;
     }
@@ -111,6 +120,13 @@ export const setUsersTotalCountAC = (totalUsersCount: number) => {
     return {
         type: 'SET_TOTAL_USERS_COUNT',
         totalUsersCount
+    } as const
+}
+
+export const toggleIsFetchingAC = (isFetching: boolean) => {
+    return {
+        type: 'TOGGLE_IS_FETCHING',
+        isFetching
     } as const
 }
 

@@ -3,7 +3,7 @@ import profileReducer, {AddPostActionType, UpdateNewPostTextActionType} from "./
 import dialogsReducer, {SendMessageActionType, UpdateNewMessageBodyActionType} from "./dialogs-reducer";
 import usersReducer, {
     FollowActionType,
-    SetCurrentPageActionType,
+    SetCurrentPageActionType, SetIsFetchingACActionType,
     SetUsersActionType, SetUsersCountACActionType,
     UnfollowActionType
 } from "./users-reducer";
@@ -31,3 +31,4 @@ export type ActionsTypes =
     | SetUsersActionType
     | SetCurrentPageActionType
     | SetUsersCountACActionType
+    | SetIsFetchingACActionType
